@@ -4,10 +4,14 @@
 	$.fn.toc = function(options) {
 		// set default settings for plugin
 		var settings = $.extend({
-			// option to strip headlines that are too long
-			stripAfter: 50,
+			// option to shorten headlines that are too long
+			shorten: false,
+			// strip them after 
+			shortenAfter: 50,
+			// speed of scrolling animation
 			scrollSpeed: 400,
-			wrapWith: '<div class="toc_container"/>'
+			// wrapper for toc (for example if displayed in bubble)
+			wrapWith: '<div class="tocContainer"/>'
 		}, options);
 
 		// helper function for animation
@@ -56,9 +60,16 @@
 				var headlineId = 'hl_' + (index1 + 1) + (index2 + 1) + level;
 				
 				// build new TOC entry
-				var currentHeadline = $(headline).html();
-				$(this).html('<a id="' + headlineId + '">' + currentHeadline);
-				toc += '<li><a href="#' + headlineId + '">' + currentHeadline + '</a></li>';
+				console.log($(headline).text());
+
+				var currentHeadlineHTML = $(headline).html();
+				var currentHeadlineText = $(headline).text();
+				var shortenedHeadlineText = currentHeadlineText
+				if (settings.strip) {
+					shortenedHeadlineText = shortenedHeadlineText.substring(0, settings.stripAfter) + "...";
+				}
+				$(this).html('<a id="' + headlineId + '">' + currentHeadlineHTML);
+				toc += '<li><a href="#' + headlineId + '" title="' + currentHeadlineText + '">' + shortenedHeadlineText + '</a></li>';
 			});
 
 			// finish list and append to parent element

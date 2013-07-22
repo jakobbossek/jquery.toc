@@ -8,7 +8,20 @@
 		<link rel="stylesheet" href="demo.css"></link>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
-				$("article").toc({});
+				// add toc to each article element and append toc toggle button
+				$("article").toc(
+					{
+						strip: true,
+						stripAfter: 15
+					}).append('<a class="tocToggle">toc</a>');
+
+				// toc toggle button click handler
+				$(".tocToggle").click(function() {
+					// toggle toc view on button click
+					var container = $(this).parent();
+					var toc = $(".tocContainer", container);
+					toc.fadeToggle('fast');
+				});
 			});
 		</script>
 	</head>

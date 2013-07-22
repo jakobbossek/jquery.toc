@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.footnote {
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.footnotes {
+	font-size: 10px;
+	padding-left: 5px;
+	padding-top: 10px;
+	list-style-position: inside;
+	border-top: 1px solid black;
+}

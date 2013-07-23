@@ -30,19 +30,21 @@
 		// iterate over all selected elements
 		return this.each(function(index1) {
 			// select all headers in current container
-			var container = $(this);
-			var headlines = $(':header', container);
-			var toc = '<ul class="toc">';
+			var container = $(this),
+				headlines = $(':header', container),
+				toc = '<ul class="toc">';
+
+			if (headlines.length == 0) {
+				return;
+			}
+
 			// init healine level
-			// FIXME: determine initial level (extract from headlines)
-			var level = 1;
+			var level = headlines[0].tagName.replace(/[^\d]/g, "");
 			headlines.each(function(index2, headline) {
 				// extract headline level
-				console.log(headline);
 				var cLevel = headline.tagName.replace(/[^\d]/g, "");
 				// check whether it is necessary to start a nested list
 				if (cLevel != level) {
-					console.log("Entering new headline layer: " + cLevel);
 					// making the following stuff is mandatory, because
 					// there might be missing header levels
 					// FIXME: make this better
@@ -57,12 +59,11 @@
 					}
 					level = cLevel;
 				}
+
 				// build unique hash (for scrolling)
 				var headlineId = 'hl_' + (index1 + 1) + (index2 + 1) + level;
 				
 				// build new TOC entry
-				console.log($(headline).text());
-
 				var currentHeadlineHTML = $(headline).html();
 				var currentHeadlineText = $(headline).text();
 				var shortenedHeadlineText = currentHeadlineText
@@ -74,7 +75,7 @@
 			});
 
 			// finish list and append to parent element
-			toc += '<ul>';
+			toc += '</ul>';
 			container.append($(toc));
 
 			$(".toc", container).wrap(settings.wrapWith);

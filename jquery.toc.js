@@ -1,6 +1,8 @@
 (function($) {
 	// FIXME: overwork "hash function". If toc() is applied multiple times,
 	// the hash values are reused!!!
+	// FIXME: eventually add possibility to determine maximal depth
+	// i.e., the maximal header level that is taken into account
 	$.fn.toc = function(options) {
 		// set default settings for plugin
 		var settings = $.extend({
@@ -11,7 +13,7 @@
 			// speed of scrolling animation
 			scrollSpeed: 400,
 			// wrapper for toc (for example if displayed in bubble)
-			wrapWith: '<div class="tocContainer"/>'
+			wrapWith: '<div class="tocContainer"/>',
 		}, options);
 
 		// helper function for animation
@@ -20,8 +22,7 @@
 			// smoothly scroll to corresponding headline
 			$(document.body).animate(
 				{'scrollTop': $(target).offset().top}, 
-				settings.scrollSpeed, 
-				"swing",
+				settings.scrollSpeed,
 				function() {}
 			);
 		};

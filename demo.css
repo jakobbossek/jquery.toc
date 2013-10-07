@@ -3,8 +3,7 @@
 body {
 	margin: 15px auto;
 	width: 600px;
-	padding: 10px 25px;
-	box-shadow: 0px 0px 4px rgba(0,0,0,0.6);
+	padding: 45px 25px 25px;
 	color: rgba(0,0,0,0.7);
 	font-family: 'Helvetica Neue', Helvetica, sans-serif;
 }
@@ -19,41 +18,51 @@ body article {
 	position: relative;
 }
 
-.tocToggle {
-	position: absolute;
-	top: 10px;
-	right: 20px;
-	width: 16px;
-	height: 16px;
-	border-radius: 8px;
-	text-indent: -9999px;
-	background-color: #000;
-	cursor: pointer;
+body > header {
+	background: #000;
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 40px;
 }
 
-.tocContainer {
-	position: absolute;
-	top: 36px;
-	right: 20px;
+a#toggle_toc:link,
+a#toggle_toc:visited {
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 10px 10px;
+	display: inline-block;
+	height: 40px;
+}
+
+#toc_container {
+	position: fixed;
+	top: 50px;
+	left: 10px;
 	max-width: 220px;
-	padding: 12px;
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.6);
-	display: hide;
 	background: #000;
-	border-radius: 7px;
 	opacity: 0.9;
 	display: none;
 }
 
-.tocContainer ul {
+.toc_container ul {
 	list-style-position: outside;
+	list-style-type: none;
 	padding-left: 15px;
 }
 
-.tocContainer ul a:link,
-.tocContainer ul a:visited,
-.tocContainer ul a:active {
+.toc_container ul a:link,
+.toc_container ul a:visited,
+.toc_container ul a:active {
 	font-size: 12px;
 	color: #cfcfcf;
 	text-decoration: none;
+}
+
+.toc_container ul a:hover {
+	text-decoration: underline;
 }

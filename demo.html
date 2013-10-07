@@ -3,31 +3,37 @@
 <html>
 	<head>
 		<title>jQuery plugin toc (table of contents) - demo</title>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="jquery.toc.js"></script>
 		<link rel="stylesheet" href="demo.css"></link>
 		<script type="text/javascript">
 			jQuery(document).ready(function($) {
-				// add toc to each article element and append toc toggle button
-				$("article").toc(
+				// add toc to article element
+				$("#article_with_toc").toc(
 					{
 						strip: true,
-						stripAfter: 15
-					}).append('<a class="tocToggle">toc</a>');
+						stripAfter: 15,
+						container: "#toc_container",
+						scrollSpeed: 300,
+						scrollOffset: 50
+					});
 
 				// toc toggle button click handler
-				$(".tocToggle").click(function() {
+				$("#toggle_toc").click(function(e) {
 					// toggle toc view on button click
-					var container = $(this).parent();
-					var toc = $(".tocContainer", container);
-					toc.fadeToggle('fast');
+					e.preventDefault();
+					$("#toc_container").fadeToggle('fast');
 				});
 			});
 		</script>
 	</head>
 
 	<body>
-		<article>
+		<header>
+			<a id="toggle_toc" href="#">show TOC</a>
+			<div id="toc_container"></div>
+		</header>
+		<article id="article_with_toc">
 			<h1>Lorem ipsum</h1>
 			<p>Lorem ipsum Sint in esse culpa dolor incididunt ut labore consequat pariatur Excepteur commodo nisi exercitation dolor reprehenderit Excepteur nulla tempor amet est anim tempor aute Duis.</p>
 

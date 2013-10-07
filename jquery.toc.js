@@ -1,6 +1,19 @@
+/**
+ * Table of contents plugin for jQuery.
+ *
+ * Provides the possibility to automatically generate a toc, i.e., a table
+ * of contents for a given element. All headers, i.e. hx for x in {1,...,6}
+ * will be extracted and dynamically extented by hashes. Clicking on a link
+ * in the toc will smoothly scroll to the corresponding headline.
+ *
+ * The plugin offers sufficient customization options through a set of
+ * optional parameters. See the comments in the code and the example for 
+ * further information. 
+ *
+ * Author: Jakob Bossek <info@jakobbossek.de>
+ * Version: v1.1
+ */
 (function($) {
-	// FIXME: overwork "hash function". If toc() is applied multiple times,
-	// the hash values are reused!!!
 	// FIXME: eventually add possibility to determine maximal depth
 	// i.e., the maximal header level that is taken into account
 	$.fn.toc = function(options) {
@@ -9,11 +22,15 @@
 			// option to shorten headlines that are too long
 			shorten: false,
 			// strip them after 
-			shortenAfter: 50,
+			stripAfter: 50,
 			// speed of scrolling animation
 			scrollSpeed: 400,
+			// offset (useful if fixed positioned headers are used)
+			scrollOffset: 0,
 			// wrapper for toc (for example if displayed in bubble)
-			wrapWith: '<div class="tocContainer"/>',
+			wrapWith: '<div class="toc_container"/>',
+			// toc container (parent element of toc)
+			container: 'body'
 		}, options);
 
 		// helper function for animation
@@ -21,7 +38,7 @@
 		var scrollToHeadline = function(target) {
 			// smoothly scroll to corresponding headline
 			$(document.body).animate(
-				{'scrollTop': $(target).offset().top}, 
+				{'scrollTop': $(target).offset().top - settings.scrollOffset}, 
 				settings.scrollSpeed,
 				function() {}
 			);
@@ -30,7 +47,8 @@
 		// iterate over all selected elements
 		return this.each(function(index1) {
 			// select all headers in current container
-			var container = $(this),
+			var toc_container = $(settings.container),
+			    container = $(this),
 				headlines = $(':header', container),
 				toc = '<ul class="toc">';
 
@@ -76,9 +94,9 @@
 
 			// finish list and append to parent element
 			toc += '</ul>';
-			container.append($(toc));
+			toc_container.append($(toc));
 
-			$(".toc", container).wrap(settings.wrapWith);
+			$(".toc", toc_container).wrap(settings.wrapWith);
 
 			// make the links scroll fine
 			$("li a", $(".toc")).click(function(e) {

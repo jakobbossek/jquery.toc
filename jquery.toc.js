@@ -7,8 +7,8 @@
  * in the toc will smoothly scroll to the corresponding headline.
  *
  * The plugin offers sufficient customization options through a set of
- * optional parameters. See the comments in the code and the example for 
- * further information. 
+ * optional parameters. See the comments in the code and the example for
+ * further information.
  *
  * Author: Jakob Bossek <info@jakobbossek.de>
  * Version: v1.1
@@ -21,7 +21,7 @@
 		var settings = $.extend({
 			// option to shorten headlines that are too long
 			shorten: false,
-			// strip them after 
+			// strip them after
 			stripAfter: 50,
 			// speed of scrolling animation
 			scrollSpeed: 400,
@@ -37,8 +37,8 @@
 		// FIXME: make plugin depend on smoothScroll plugin
 		var scrollToHeadline = function(target) {
 			// smoothly scroll to corresponding headline
-			$(document.body).animate(
-				{'scrollTop': $(target).offset().top - settings.scrollOffset}, 
+			$("body, html").animate(
+				{'scrollTop': $(target).offset().top - settings.scrollOffset},
 				settings.scrollSpeed,
 				function() {}
 			);
@@ -80,7 +80,7 @@
 
 				// build unique hash (for scrolling)
 				var headlineId = 'hl_' + (index1 + 1) + (index2 + 1) + level;
-				
+
 				// build new TOC entry
 				var currentHeadlineHTML = $(headline).html();
 				var currentHeadlineText = $(headline).text();
